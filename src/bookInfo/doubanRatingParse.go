@@ -11,9 +11,9 @@ import (
 func (douBanRating *DouBanRating) ParseFromHtml(doc *goquery.Document) (err error) {
 
 	//CSS选择器匹配字段
-	bookBasicInfoSelection := doc.Find("div #interest_sectl")
+	douBanRatingSelection := doc.Find("div #interest_sectl")
 
-	fullHtml, err := bookBasicInfoSelection.Html()
+	fullHtml, err := douBanRatingSelection.Html()
 	if err != nil {
 		panic(err)
 	}
@@ -25,11 +25,11 @@ func (douBanRating *DouBanRating) ParseFromHtml(doc *goquery.Document) (err erro
 		douBanRating.HasRating = true
 
 		//评分
-		ratingStr := bookBasicInfoSelection.Find("strong").Text()
+		ratingStr := douBanRatingSelection.Find("strong").Text()
 		douBanRating.Rating, _ = strconv.ParseFloat(strings.Trim(ratingStr, " "), 64)
 
 		//评价人数
-		ratingNumberText := bookBasicInfoSelection.Find("div.rating_sum").Text()
+		ratingNumberText := douBanRatingSelection.Find("div.rating_sum").Text()
 		log.Println(ratingNumberText)
 		re := regexp.MustCompile(`([0-9\s]*)人评价`)
 		match := re.FindStringSubmatch(ratingNumberText)
@@ -39,7 +39,7 @@ func (douBanRating *DouBanRating) ParseFromHtml(doc *goquery.Document) (err erro
 		}
 
 		//各星人数
-		bookBasicInfoSelection.Find("span.rating_per").Each(func(i int, s1 *goquery.Selection) {
+		douBanRatingSelection.Find("span.rating_per").Each(func(i int, s1 *goquery.Selection) {
 			log.Println(i, ":", s1.Text())
 			douBanRating.Stars[5-i], _ = strconv.ParseFloat(strings.Trim(s1.Text(), " %"), 64)
 		})
@@ -48,7 +48,7 @@ func (douBanRating *DouBanRating) ParseFromHtml(doc *goquery.Document) (err erro
 		douBanRating.HasRating = false
 	}
 	/*
-			bookBasicInfoSelection.Find("span").Each(func(i int, s1 *goquery.Selection) {
+			douBanRatingSelection.Find("span").Each(func(i int, s1 *goquery.Selection) {
 			key := s1.Find("span").Text()
 
 			if strings.Trim(key, " ") == "作者" {

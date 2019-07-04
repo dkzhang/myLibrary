@@ -38,8 +38,7 @@ func ExampleScrape() {
 	}
 
 	theBookInfo := bookInfo.BookInfo{}
-	theBookInfo.TheBookBasicInfo.ParseFromHtml(doc)
-	theBookInfo.TheDouBanRating.ParseFromHtml(doc)
+	theBookInfo.ParseFromHtml(doc)
 
 	log.Printf("%v", theBookInfo.TheBookBasicInfo)
 	log.Printf("%v", theBookInfo.TheDouBanRating)
