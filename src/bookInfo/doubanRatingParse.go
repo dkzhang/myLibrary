@@ -31,10 +31,10 @@ func (douBanRating *DouBanRating) ParseFromHtml(doc *goquery.Document) (err erro
 		//评价人数
 		ratingNumberText := bookBasicInfoSelection.Find("div.rating_sum").Text()
 		log.Println(ratingNumberText)
-		re := regexp.MustCompile(`([0-9]*)人评价`)
+		re := regexp.MustCompile(`([0-9\s]*)人评价`)
 		match := re.FindStringSubmatch(ratingNumberText)
 		if match != nil {
-			str := strings.Trim(match[1], " ")
+			str := strings.Trim(match[1], " \f\n\r\t\v")
 			douBanRating.RatingNumber, _ = strconv.Atoi(str)
 		}
 
