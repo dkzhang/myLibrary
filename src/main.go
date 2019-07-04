@@ -21,8 +21,8 @@ func ExampleScrape() {
 	}
 
 	// Request the HTML page.
-	//res, err := client.Get("https://book.douban.com/subject/27015617/")
-	res, err := client.Get("https://book.douban.com/subject/30281411/")
+	res, err := client.Get("https://book.douban.com/subject/27015617/")
+	//res, err := client.Get("https://book.douban.com/subject/30281411/")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -37,9 +37,12 @@ func ExampleScrape() {
 		log.Fatal(err)
 	}
 
-	bbi := bookInfo.BookBasicInfo{}
-	bbi.ParseFromHtml(doc)
-	log.Printf("%v", bbi)
+	theBookInfo := bookInfo.BookInfo{}
+	theBookInfo.TheBookBasicInfo.ParseFromHtml(doc)
+	theBookInfo.TheDouBanRating.ParseFromHtml(doc)
+
+	log.Printf("%v", theBookInfo.TheBookBasicInfo)
+	log.Printf("%v", theBookInfo.TheDouBanRating)
 }
 
 func main() {

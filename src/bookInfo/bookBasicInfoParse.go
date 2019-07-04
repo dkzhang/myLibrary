@@ -103,7 +103,7 @@ func (bookBasicInfo *BookBasicInfo) ParseFromHtml(doc *goquery.Document) (err er
 	if err != nil {
 		panic(err)
 	}
-	log.Println(fullHtml)
+	//log.Println(fullHtml)
 
 	err = bookBasicInfo.parseRegexp(fullHtml, theBookBasicInfoRegexp)
 	if err != nil {
