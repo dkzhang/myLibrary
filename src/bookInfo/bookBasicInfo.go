@@ -3,7 +3,7 @@ package bookInfo
 type BookBasicInfo struct {
 	BookName         string   //书名
 	Author           []string //作者
-	Publisher        []string //出版社
+	Publisher        string   //出版社
 	Producer         []string //出品方
 	OriginalName     string   //原作名
 	Translator       []string //译者
