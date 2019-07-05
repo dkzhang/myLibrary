@@ -11,21 +11,21 @@ import (
 func ExampleScrape() {
 
 	theBookInfo := bookInfo.BookInfo{}
-	//theBookInfo.ParseFromHtmlDouBan("27015617")
-	//theBookInfo.ParseFromHtmlDouBan("27665114")
-	theBookInfo.ParseFromHtmlDouBan("27133480")
+	//theBookInfo.parseFromHtmlDouBan("27015617")
+	//theBookInfo.parseFromHtmlDouBan("27665114")
+	theBookInfo.ParseFromHtmlDouBanID("27133480", true)
 
 	log.Printf("%v", theBookInfo.TheBookBasicInfo)
 	log.Printf("%v", theBookInfo.TheDouBanRating)
 
 	log.Printf("ContentIntroduce: %s", theBookInfo.TheBookIntroduce.ContentIntroduce)
 	log.Printf("AuthorIntroduce: %s", theBookInfo.TheBookIntroduce.AuthorIntroduce)
-	//log.Printf("ContentIntroduce: %s", theBookInfo.TheBookIntroduce.ContentIntroduce)
+	log.Printf("Tags: %s", theBookInfo.TheBookTagAndRec.Tags)
 }
 
 func main() {
-	//ExampleScrape()
-	TestSearch()
+	ExampleScrape()
+	//TestSearch()
 }
 func TestSearch() {
 	urli := url.URL{}

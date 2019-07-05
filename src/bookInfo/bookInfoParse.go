@@ -7,10 +7,19 @@ import (
 	"net/url"
 )
 
-func (bookInfo *BookInfo) ParseFromHtmlDouBan(bookIDInDouBan string) (err error) {
+func (bookInfo *BookInfo) ParseFromHtmlDouBanID(bookIDInDouBan string, isDeepParse bool) (err error) {
 	bookInfo.TheBookInDouBan.ID = bookIDInDouBan
 	bookInfo.TheBookInDouBan.MakeURL()
+	return bookInfo.parseFromHtmlDouBan(isDeepParse)
+}
 
+func (bookInfo *BookInfo) ParseFromHtmlDouBanURL(bookURLInDouBan string, isDeepParse bool) (err error) {
+	bookInfo.TheBookInDouBan.URL = bookURLInDouBan
+	bookInfo.TheBookInDouBan.ParseID()
+	return bookInfo.parseFromHtmlDouBan(isDeepParse)
+}
+
+func (bookInfo *BookInfo) parseFromHtmlDouBan(isDeepParse bool) (err error) {
 	urli := url.URL{}
 	urlproxy, _ := urli.Parse("http://proxy7.bj.petrochina:8080")
 	client := http.Client{
@@ -35,31 +44,31 @@ func (bookInfo *BookInfo) ParseFromHtmlDouBan(bookIDInDouBan string) (err error)
 		log.Fatal(err)
 	}
 
-	/*
-		err = bookInfo.TheBookBasicInfo.ParseFromHtml(doc)
-		if err != nil {
-			return err
-		}
+	err = bookInfo.TheBookBasicInfo.ParseFromHtml(doc)
+	if err != nil {
+		return err
+	}
 
-		err = bookInfo.TheDouBanRating.ParseFromHtml(doc)
-		if err != nil {
-			return err
-		}
+	err = bookInfo.TheDouBanRating.ParseFromHtml(doc)
+	if err != nil {
+		return err
+	}
 
-		err = bookInfo.TheBookCover.ParseFromHtml(doc)
-		if err != nil {
-			return err
-		}
+	err = bookInfo.TheBookCover.ParseFromHtml(doc)
+	if err != nil {
+		return err
+	}
 
-		imageFilePath := fmt.Sprintf("%s_%s.jpg",
-			bookInfo.TheBookBasicInfo.BookName, bookInfo.TheBookBasicInfo.ISBN)
-		err = bookInfo.TheBookCover.DownloadCover(imageFilePath)
-		if err != nil {
-			return err
-		}
-	*/
+	err = bookInfo.TheBookCover.DownloadCover(GenerateImageFilePath(bookInfo))
+	if err != nil {
+		return err
+	}
 
 	bookInfo.TheBookIntroduce.ParseFromHtml(doc, bookInfo.TheBookInDouBan.ID)
+
+	if isDeepParse == true {
+		bookInfo.TheBookTagAndRec.ParseFromHtml(doc)
+	}
 
 	return nil
 }

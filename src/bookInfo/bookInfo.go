@@ -7,4 +7,5 @@ type BookInfo struct {
 	TheDouBanRating  DouBanRating
 	TheBookCover     BookCover
 	TheBookIntroduce BookIntroduce
+	TheBookTagAndRec BookTagAndRec
 }
