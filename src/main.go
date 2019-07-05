@@ -2,16 +2,32 @@ package main
 
 import (
 	"bookInfo"
-	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"log"
 	"net/http"
 	"net/url"
-	"regexp"
 )
 
 func ExampleScrape() {
 
+	theBookInfo := bookInfo.BookInfo{}
+	//theBookInfo.ParseFromHtmlDouBan("27015617")
+	//theBookInfo.ParseFromHtmlDouBan("27665114")
+	theBookInfo.ParseFromHtmlDouBan("27133480")
+
+	log.Printf("%v", theBookInfo.TheBookBasicInfo)
+	log.Printf("%v", theBookInfo.TheDouBanRating)
+
+	log.Printf("ContentIntroduce: %s", theBookInfo.TheBookIntroduce.ContentIntroduce)
+	log.Printf("AuthorIntroduce: %s", theBookInfo.TheBookIntroduce.AuthorIntroduce)
+	//log.Printf("ContentIntroduce: %s", theBookInfo.TheBookIntroduce.ContentIntroduce)
+}
+
+func main() {
+	//ExampleScrape()
+	TestSearch()
+}
+func TestSearch() {
 	urli := url.URL{}
 	urlproxy, _ := urli.Parse("http://proxy7.bj.petrochina:8080")
 	client := http.Client{
@@ -21,8 +37,7 @@ func ExampleScrape() {
 	}
 
 	// Request the HTML page.
-	res, err := client.Get("https://book.douban.com/subject/27015617/")
-	//res, err := client.Get("https://book.douban.com/subject/30281411/")
+	res, err := client.Get("https://book.douban.com/subject_search?search_text=9787115460158&cat=1001")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -37,27 +52,6 @@ func ExampleScrape() {
 		log.Fatal(err)
 	}
 
-	theBookInfo := bookInfo.BookInfo{}
-	theBookInfo.ParseFromHtml(doc)
-
-	log.Printf("%v", theBookInfo.TheBookBasicInfo)
-	log.Printf("%v", theBookInfo.TheDouBanRating)
-}
-
-func main() {
-	ExampleScrape()
-	//TestRegexp()
-}
-func TestRegexp() {
-	//	const text = `My email is ccmoust@gmail.com@abc.com
-	//email1 is abc@def.org
-	//email is kkk@qq.com
-	//`
-	//
-	//	re := regexp.MustCompile(`[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+`)
-
-	text := ` 80.00元`
-	re := regexp.MustCompile(`[0-9]+`)
-	match := re.FindAllString(text, -1)
-	fmt.Println(match)
+	log.Println(doc.Html())
+	log.Println(doc.Find(".title-text").Attr("href"))
 }
