@@ -21,8 +21,8 @@ func (bookCover *BookCover) ParseFromHtml(doc *goquery.Document) (err error) {
 }
 
 func GenerateImageFilePath(bookInfo *BookInfo) string {
-	return fmt.Sprintf("%s_%s.jpg",
-		bookInfo.TheBookBasicInfo.BookName, bookInfo.TheBookBasicInfo.ISBN)
+	return fmt.Sprintf("/BookCover/%s_%s.jpg",
+		bookInfo.TheBookInDouBan.ID, bookInfo.TheBookBasicInfo.ISBN)
 }
 
 func (bookCover *BookCover) DownloadCover(imageFilePath string) (err error) {
