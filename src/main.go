@@ -5,7 +5,6 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	"log"
 	"net/http"
-	"net/url"
 )
 
 func ExampleScrape() {
@@ -28,13 +27,16 @@ func main() {
 	//TestSearch()
 }
 func TestSearch() {
-	urli := url.URL{}
-	urlproxy, _ := urli.Parse("http://proxy7.bj.petrochina:8080")
-	client := http.Client{
-		Transport: &http.Transport{
-			Proxy: http.ProxyURL(urlproxy),
-		},
-	}
+	/*
+		urli := url.URL{}
+		urlproxy, _ := urli.Parse("http://proxy7.bj.petrochina:8080")
+		client := http.Client{
+			Transport: &http.Transport{
+				Proxy: http.ProxyURL(urlproxy),
+			},
+		}*/
+
+	client := http.Client{}
 
 	// Request the HTML page.
 	res, err := client.Get("https://book.douban.com/subject_search?search_text=9787115460158&cat=1001")
