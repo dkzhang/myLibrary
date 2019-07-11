@@ -2,7 +2,7 @@ package bookInfo
 
 import (
 	"github.com/PuerkitoBio/goquery"
-	"myUtils"
+	"myLibrary/src/myUtils"
 	"regexp"
 	"strconv"
 	"strings"

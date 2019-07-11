@@ -2,7 +2,7 @@ package bookInfo
 
 import (
 	"fmt"
-	"myUtils"
+	"myLibrary/src/myUtils"
 	"regexp"
 )
 

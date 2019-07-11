@@ -3,7 +3,7 @@ package bookInfo
 import (
 	"github.com/PuerkitoBio/goquery"
 	"log"
-	"myUtils"
+	"myLibrary/src/myUtils"
 )
 
 func (bookTagAndRec *BookTagAndRec) ParseFromHtml(doc *goquery.Document) (err error) {

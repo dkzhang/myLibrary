@@ -1,9 +1,9 @@
 package bookInfo
 
 import (
-	"downloadFile"
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
+	"myLibrary/src/downloadFile"
 )
 
 func (bookCover *BookCover) ParseFromHtml(doc *goquery.Document) (err error) {

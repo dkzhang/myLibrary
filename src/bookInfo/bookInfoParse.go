@@ -4,7 +4,6 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	"log"
 	"net/http"
-	"net/url"
 )
 
 func (bookInfo *BookInfo) ParseFromHtmlDouBanID(bookIDInDouBan string, isDeepParse bool) (err error) {
@@ -20,13 +19,16 @@ func (bookInfo *BookInfo) ParseFromHtmlDouBanURL(bookURLInDouBan string, isDeepP
 }
 
 func (bookInfo *BookInfo) parseFromHtmlDouBan(isDeepParse bool) (err error) {
-	urli := url.URL{}
-	urlproxy, _ := urli.Parse("http://proxy7.bj.petrochina:8080")
-	client := http.Client{
-		Transport: &http.Transport{
-			Proxy: http.ProxyURL(urlproxy),
-		},
-	}
+	/*
+		urli := url.URL{}
+		urlproxy, _ := urli.Parse("http://proxy7.bj.petrochina:8080")
+		client := http.Client{
+			Transport: &http.Transport{
+				Proxy: http.ProxyURL(urlproxy),
+			},
+		}
+	*/
+	client := http.Client{}
 
 	// Request the HTML page.
 	res, err := client.Get(bookInfo.TheBookInDouBan.URL)
