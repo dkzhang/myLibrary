@@ -27,7 +27,7 @@ func GenerateImageFilePath(bookInfo *BookInfo) string {
 
 func (bookCover *BookCover) DownloadCover(imageFilePath string) (err error) {
 	err = downloadFile.HttpDownloadFile(bookCover.Url, imageFilePath)
-	if err != nil {
+	if err == nil {
 		bookCover.ImageFilePath = imageFilePath
 	}
 	return err

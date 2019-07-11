@@ -11,3 +11,5 @@ RUN protoc -I src/protoGetBookInfo/ src/protoGetBookInfo/GetBookInfo.proto --go_
 RUN go build ./src/main.go
 
 CMD ["./main"]
+
+# docker run --name bookinfo-spider -p 50061:50061 --mount source=book-cover,target=/BookCover dkzhang007/book-library-bookinfo-spider:latest
