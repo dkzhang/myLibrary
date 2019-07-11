@@ -22,4 +22,6 @@ message UrlRequest {
 // The response message containing the book info json url.
 message BookInfoJsonReply {
     string infoJson = 1;
+
+    string errorMessage = 2;
 }

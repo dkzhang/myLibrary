@@ -6,7 +6,7 @@ WORKDIR /go/src/myLibrary
 
 COPY . /go/src/myLibrary
 
-#RUN protoc -I queryDouBanID/ queryDouBanID/the.proto --go_out=plugins=grpc:queryDouBanID/
+RUN protoc -I protoGetBookInfo/ protoGetBookInfo/GetBookInfo.proto --go_out=plugins=grpc:protoGetBookInfo/
 
 RUN go build ./src/main.go
 
