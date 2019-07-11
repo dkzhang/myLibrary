@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package protoGetBookInfo;
+
+// The greeting service definition.
+service GetBookInformation {
+    // Sends a query
+    rpc GetBookInfoByID (IdRequest) returns (BookInfoJsonReply) {}
+
+    rpc GetBookInfoByUrl (UrlRequest) returns (BookInfoJsonReply) {}
+}
+
+// The request message
+message IdRequest {
+    string id = 1;
+}
+
+message UrlRequest {
+    string url = 1;
+}
+
+// The response message containing the book info json url.
+message BookInfoJsonReply {
+    string infoJson = 1;
+}
